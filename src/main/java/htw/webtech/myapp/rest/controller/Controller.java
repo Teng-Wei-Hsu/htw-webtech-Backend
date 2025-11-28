@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = {"https://htw-webtech-frontend-x6d1.onrender.com","http://localhost:5173"})
 public class Controller {
 
     @GetMapping("/restaurants")
