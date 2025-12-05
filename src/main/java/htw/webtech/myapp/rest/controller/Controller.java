@@ -68,6 +68,6 @@ public class Controller {
         return service.create(restaurant);
     }
 
-    //PUT und DELETE
+    //PUT und DELETE und Frontend Placeholder for add and delete restaurants in the list
 
 }
