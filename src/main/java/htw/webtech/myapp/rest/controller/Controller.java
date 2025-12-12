@@ -1,7 +1,6 @@
 package htw.webtech.myapp.rest.controller;
 
 
-import htw.webtech.myapp.rest.model.Restaurant;
 import htw.webtech.myapp.Service.RestaurantsService;
 import htw.webtech.myapp.persistence.entity.RestaurantsEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +13,8 @@ import java.util.List;
 
 @RestController
     @CrossOrigin(origins = {"https://htw-webtech-frontend-x6d1.onrender.com","http://localhost:5173"})
+
+@RequestMapping("/restaurants")
 public class Controller {
 
     private final RestaurantsService service;
@@ -22,38 +23,10 @@ public class Controller {
         this.service = service;
     }
 
-    @GetMapping("/restaurants")
-    public List<Restaurant> getRestaurants() {
-        // Return a few example restaurants
-        return List.of(
-                new Restaurant(
-                        1L,
-                        "Sushi Palace",
-                        "Germany",
-                        "Berlin",
-                        "Japanese",
-                        4.8,
-                        List.of("Fresh fish!", "Beautiful decor")
-                ),
-                new Restaurant(
-                        2L,
-                        "La Piazza",
-                        "Germany",
-                        "Munich",
-                        "Italian",
-                        4.6,
-                        List.of("Authentic pizza!", "Friendly staff")
-                ),
-                new Restaurant(
-                        3L,
-                        "Burger Bros",
-                        "Germany",
-                        "Hamburg",
-                        "American",
-                        4.5,
-                        List.of("Great burgers!", "Nice location")
-                )
-        );
+    // GET all restaurants
+    @GetMapping
+    public List<RestaurantsEntity> getAllRestaurants() {
+        return service.getAll();
     }
 
     // GET one by ID
