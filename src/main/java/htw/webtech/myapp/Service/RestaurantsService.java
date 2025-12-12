@@ -27,4 +27,8 @@ public class RestaurantsService {
     public RestaurantsEntity create(RestaurantsEntity entity) {
         return repo.save(entity);
     }
+
+    public void delete(Long id) {
+        repo.deleteById(id);
+    }
 }

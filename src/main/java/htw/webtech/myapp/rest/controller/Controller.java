@@ -41,6 +41,11 @@ public class Controller {
         return service.create(restaurant);
     }
 
+
+    @DeleteMapping("/{id}")
+    public void deleteRestaurant(@PathVariable Long id) {
+        service.delete(id);
+    }
     //PUT und DELETE und Frontend Placeholder for add and delete restaurants in the list
 
 }
