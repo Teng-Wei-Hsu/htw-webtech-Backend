@@ -5,8 +5,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
-
-
 public class RestaurantsEntity {
 
     @Id
