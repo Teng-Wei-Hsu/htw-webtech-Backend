@@ -84,5 +84,19 @@ public class ControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void toggleFavorite_shouldReturnUpdatedRestaurant() throws Exception {
+        RestaurantsEntity restaurant = new RestaurantsEntity(
+                "Sushi Palace", "Germany", "Berlin", "Japanese", 4.8, List.of("Great!")
+        );
+        restaurant.setFavorite(true);
+
+        Mockito.when(service.toggleFavorite(1L)).thenReturn(restaurant);
+
+        mockMvc.perform(patch("/restaurants/1/favorite"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.favorite").value(true));
+    }
+
 
 }

@@ -20,6 +20,9 @@ public class RestaurantsEntity {
     @ElementCollection
     private List<String> reviews;
 
+    @Column(nullable = false)
+    private boolean favorite = false;
+
     public RestaurantsEntity() {}
 
     public RestaurantsEntity(String name, String country, String city, String cuisineType, double rating, List<String> reviews) {
@@ -29,9 +32,10 @@ public class RestaurantsEntity {
         this.cuisineType = cuisineType;
         this.rating = rating;
         this.reviews = reviews;
+        this.favorite = false; // explicit default
     }
 
-    // ADD THESE GETTERS & SETTERS
+    // ADD GETTERS & SETTERS
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -52,6 +56,9 @@ public class RestaurantsEntity {
 
     public List<String> getReviews() { return reviews; }
     public void setReviews(List<String> reviews) { this.reviews = reviews; }
+
+    public boolean isFavorite() { return favorite; }
+    public void setFavorite(boolean favorite) { this.favorite = favorite; }
 
 
 }

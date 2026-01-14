@@ -25,10 +25,22 @@ public class RestaurantsService {
     }
 
     public RestaurantsEntity create(RestaurantsEntity entity) {
+        entity.setFavorite(false); // enforce default
         return repo.save(entity);
     }
 
     public void delete(Long id) {
         repo.deleteById(id);
     }
+
+    // NEW METHOD
+    public RestaurantsEntity toggleFavorite(Long id) {
+        RestaurantsEntity restaurant = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
+
+        restaurant.setFavorite(!restaurant.isFavorite());
+        return repo.save(restaurant);
+    }
+
+
 }

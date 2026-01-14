@@ -47,5 +47,11 @@ public class Controller {
         service.delete(id);
     }
 
+    //NEW FAVORITE TOGGLE ENDPOINT
+    @PatchMapping("/{id}/favorite")
+    public RestaurantsEntity toggleFavorite(@PathVariable Long id) {
+        return service.toggleFavorite(id);
+    }
+
 
 }

@@ -33,6 +33,7 @@ public class RestaurantsServiceTest {
         restaurant = new RestaurantsEntity(
                 "Sushi Place", "Germany", "Berlin", "Japanese", 4.5, List.of("Great")
         );
+        restaurant.setFavorite(false);
     }
 
     @Test
@@ -69,5 +70,17 @@ public class RestaurantsServiceTest {
         service.delete(1L);
 
         verify(repo).deleteById(1L);
+    }
+
+    @Test
+    void testToggleFavorite() {
+        when(repo.findById(1L)).thenReturn(Optional.of(restaurant));
+        when(repo.save(any(RestaurantsEntity.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        RestaurantsEntity updated = service.toggleFavorite(1L);
+
+        assertTrue(updated.isFavorite());
+        verify(repo).save(restaurant);
     }
 }
