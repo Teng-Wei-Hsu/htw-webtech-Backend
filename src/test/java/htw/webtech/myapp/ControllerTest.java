@@ -98,5 +98,23 @@ public class ControllerTest {
                 .andExpect(jsonPath("$.favorite").value(true));
     }
 
+    @Test
+    void updateRestaurant_shouldReturnUpdatedRestaurant() throws Exception {
+        RestaurantsEntity updated = new RestaurantsEntity(
+                "Sushi Palace", "Germany", "Berlin", "Japanese", 4.9, List.of("Excellent")
+        );
+        updated.setFavorite(false);
+
+        Mockito.when(service.update(Mockito.eq(1L), Mockito.any()))
+                .thenReturn(updated);
+
+        mockMvc.perform(put("/restaurants/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updated)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.rating").value(4.9))
+                .andExpect(jsonPath("$.reviews[0]").value("Excellent"));
+    }
+
 
 }

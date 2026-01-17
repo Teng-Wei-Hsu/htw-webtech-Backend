@@ -53,5 +53,14 @@ public class Controller {
         return service.toggleFavorite(id);
     }
 
+    //NEW updateRestaurant ENDPOINT for editing
+    @PutMapping("/{id}")
+    public RestaurantsEntity updateRestaurant(
+            @PathVariable Long id,
+            @RequestBody RestaurantsEntity restaurant
+    ) {
+        return service.update(id, restaurant);
+    }
+
 
 }

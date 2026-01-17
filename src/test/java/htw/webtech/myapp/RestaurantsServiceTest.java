@@ -83,4 +83,35 @@ public class RestaurantsServiceTest {
         assertTrue(updated.isFavorite());
         verify(repo).save(restaurant);
     }
+
+    @Test
+    void testUpdateRestaurant() {
+        // existing restaurant in DB
+        when(repo.findById(1L)).thenReturn(Optional.of(restaurant));
+        when(repo.save(any(RestaurantsEntity.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        // updated values (ONLY editable fields)
+        RestaurantsEntity updatedData = new RestaurantsEntity(
+                "IGNORED",          // name ignored
+                "IGNORED",          // country ignored
+                "IGNORED",          // city ignored
+                "Thai",             // cuisine updated
+                4.9,                // rating updated
+                List.of("Amazing")  // reviews updated
+        );
+        updatedData.setFavorite(true);
+
+        RestaurantsEntity result = service.update(1L, updatedData);
+
+        assertEquals("Thai", result.getCuisineType());
+        assertEquals(4.9, result.getRating());
+        assertEquals(List.of("Amazing"), result.getReviews());
+        assertTrue(result.isFavorite());
+
+        // ensure immutable fields remain unchanged
+        assertEquals("Sushi Place", result.getName());
+        assertEquals("Germany", result.getCountry());
+        assertEquals("Berlin", result.getCity());
+    }
 }

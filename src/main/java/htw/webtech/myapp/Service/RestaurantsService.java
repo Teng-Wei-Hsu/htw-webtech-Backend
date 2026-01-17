@@ -33,13 +33,27 @@ public class RestaurantsService {
         repo.deleteById(id);
     }
 
-    // NEW METHOD
+    // NEW METHOD favorite
     public RestaurantsEntity toggleFavorite(Long id) {
         RestaurantsEntity restaurant = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Restaurant not found"));
 
         restaurant.setFavorite(!restaurant.isFavorite());
         return repo.save(restaurant);
+    }
+
+
+    // NEW METHOD update
+    public RestaurantsEntity update(Long id, RestaurantsEntity updatedRestaurant) {
+        RestaurantsEntity existing = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found"));
+
+        existing.setCuisineType(updatedRestaurant.getCuisineType());
+        existing.setRating(updatedRestaurant.getRating());
+        existing.setReviews(updatedRestaurant.getReviews());
+        existing.setFavorite(updatedRestaurant.isFavorite());
+
+        return repo.save(existing);
     }
 
 
